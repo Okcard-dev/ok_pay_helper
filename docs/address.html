@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OK 小助手 - 门店地址</title>
+    <link rel="stylesheet" href="static/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo-area">
+                <span class="logo-text">门店地址</span>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content address-content">
+            <div id="address-list" class="address-list">
+                <!-- Addresses will be loaded here via JS -->
+                <div class="loading">加载中...</div>
+            </div>
+        </main>
+
+        <!-- Modal for QR Code -->
+        <div id="qr-modal" class="modal">
+            <div class="modal-content">
+                <span class="close-modal">&times;</span>
+                <h3 id="modal-title">联系负责人</h3>
+                <img id="modal-qrcode" src="" alt="QR Code">
+                <p id="modal-manager"></p>
+            </div>
+        </div>
+
+        <!-- Bottom Navigation -->
+        <nav class="bottom-nav">
+            <a href="index.html" class="nav-item">
+                <i class="fa-solid fa-house"></i>
+                <span>首页</span>
+            </a>
+            <a href="address.html" class="nav-item active">
+                <i class="fa-regular fa-map"></i>
+                <span>地址</span>
+            </a>
+            <a href="items.html" class="nav-item">
+                <i class="fa-solid fa-ticket"></i>
+                <span>票券</span>
+            </a>
+            <a href="#" class="nav-item">
+                <i class="fa-regular fa-face-smile"></i>
+                <span>其它</span>
+            </a>
+        </nav>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            fetch('static/data/addresses.json')
+                .then(response => response.json())
+                .then(data => {
+                    const listContainer = document.getElementById('address-list');
+                    listContainer.innerHTML = ''; // Clear loading text
+
+                    data.forEach(addr => {
+                        const item = document.createElement('div');
+                        item.className = 'address-item';
+                        item.innerHTML = `
+                            <div class="address-info">
+                                <div class="address-header">
+                                    <span class="address-name">${addr.name}</span>
+                                    <span class="address-time">${addr.time || ''}</span>
+                                </div>
+                                <div class="address-detail">${addr.location}</div>
+                                <div class="address-detail">${addr.detail}</div>
+                                <div class="address-phone"><i class="fa-solid fa-phone"></i> ${addr.phone}</div>
+                            </div>
+                            <div class="address-action">
+                                <button class="btn-contact" onclick="showQRCode('${addr.manager}', '${addr.qrcode}')">
+                                    <i class="fa-solid fa-qrcode"></i> 联系
+                                </button>
+                            </div>
+                        `;
+                        listContainer.appendChild(item);
+                    });
+                })
+                .catch(error => {
+                    console.error('Error loading addresses:', error);
+                    document.getElementById('address-list').innerHTML = '<div class="error">加载失败</div>';
+                });
+
+            // Modal logic
+            const modal = document.getElementById('qr-modal');
+            const span = document.getElementsByClassName("close-modal")[0];
+
+            span.onclick = function() {
+                modal.style.display = "none";
+            }
+
+            window.onclick = function(event) {
+                if (event.target == modal) {
+                    modal.style.display = "none";
+                }
+            }
+        });
+
+        function showQRCode(manager, qrcodeUrl) {
+            const modal = document.getElementById('qr-modal');
+            document.getElementById('modal-title').innerText = '联系负责人: ' + manager;
+            document.getElementById('modal-qrcode').src = qrcodeUrl;
+            document.getElementById('modal-manager').innerText = '请扫描二维码添加微信';
+            modal.style.display = "block";
+        }
+    </script>
+</body>
+</html>

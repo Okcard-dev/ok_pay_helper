@@ -1,0 +1,162 @@
+[
+    {
+        "id": 1,
+        "name": "真光路店",
+        "location": "普陀区百联中环购物广场真光路1258号",
+        "detail": "B701室",
+        "phone": "021-52629933*8822/8820",
+        "time": "周一至周日 09:00~17：30",
+        "manager": "冯经理",
+        "qrcode": "static/images/qrcodes/qrcode_zhenguanglu.png"
+    },
+    {
+        "id": 2,
+        "name": "东宝店",
+        "location": "四川北路1688号南楼（福德广场）",
+        "detail": "1305室",
+        "phone": "021-63245163",
+        "time": "周一至周日 09:00~17：30",
+        "manager": "杨经理",
+        "qrcode": "static/images/qrcodes/qrcode_dongbao.png"
+    },
+    {
+        "id": 3,
+        "name": "万达店",
+        "location": "共和新路4995号宝山万达3号楼10楼",
+        "detail": "1006室",
+        "phone": "021-65878007",
+        "time": "周一至周日 09:00~17：30",
+        "manager": "徐经理",
+        "qrcode": "static/images/qrcodes/qrcode_wanda.png"
+    },
+    {
+        "id": 4,
+        "name": "大连路店",
+        "location": "大连路1548号莱克大厦裙楼2楼",
+        "detail": "216A室",
+        "phone": "021-55570105",
+        "time": "周一至周日 09:00~17：30",
+        "manager": "林经理",
+        "qrcode": "static/images/qrcodes/qrcode_dalianlu.png"
+    },
+    {
+        "id": 5,
+        "name": "五角场店",
+        "location": "翔殷路1128号（沪东金融大厦）",
+        "detail": "14A2室",
+        "phone": "021- 55228227",
+        "time": "周一至周日 09:00~17：30",
+        "manager": "李经理",
+        "qrcode": "static/images/qrcodes/qrcode_wujiaochang.png"
+    },
+    {
+        "id": 6,
+        "name": "商城路店",
+        "location": "商城路518号（内外联大厦）",
+        "detail": "401室",
+        "phone": "021- 50540145",
+        "time": "周一至周日 09:00~17：30",
+        "manager": "虞经理",
+        "qrcode": "static/images/qrcodes/qrcode_shangchenglu.png"
+    },
+    {
+        "id": 7,
+        "name": "东方路店",
+        "location": "东方路985号一百杉杉大厦",
+        "detail": "9楼I室",
+        "phone": "021-58304615",
+        "time": "周一至周日 09:00~17：30",
+        "manager": "柏经理",
+        "qrcode": "static/images/qrcodes/qrcode_dongfanglu.png"
+    },
+    {
+        "id": 8,
+        "name": "金桥店",
+        "location": "金桥路939号宏南投资大厦",
+        "detail": "206室",
+        "phone": "021- 60953952",
+        "time": "周一至周日 09:00~17：30",
+        "manager": "钱经理",
+        "qrcode": "static/images/qrcodes/qrcode_jinqiao.png"
+    },
+    {
+        "id": 9,
+        "name": "川沙店",
+        "location": "绣川路581号绿地东海岸A座",
+        "detail": "1312室",
+        "phone": "021- 58986715",
+        "time": "周一至周日 09:00~17：30",
+        "manager": "顾经理",
+        "qrcode": "static/images/qrcodes/qrcode_chuansha.png"
+    },
+    {
+        "id": 10,
+        "name": "六合店",
+        "location": "云南北路59号六合大厦(近芝罘路）",
+        "detail": "14楼1418室",
+        "phone": "021-53083805",
+        "time": "周一至周日 09:00~17：30",
+        "manager": "严经理",
+        "qrcode": "static/images/qrcodes/qrcode_liuhe.png"
+    },
+    {
+        "id": 11,
+        "name": "打浦店",
+        "location": "斜土路791号B楼",
+        "detail": "101D室",
+        "phone": "021- 63330866",
+        "time": "周一至周日 09:00~17：30",
+        "manager": "金经理",
+        "qrcode": "static/images/qrcodes/qrcode_dapudian.png"
+    },
+    {
+        "id": 12,
+        "name": "万体馆店",
+        "location": "中山南二路1007号中煌大厦（近天钥桥路口）",
+        "detail": "207室",
+        "phone": "021- 54610160",
+        "time": "周一至周日 09:00~17：30",
+        "manager": "黄经理",
+        "qrcode": "static/images/qrcodes/qrcode_wantiguan.png"
+    },
+    {
+        "id": 13,
+        "name": "延安西路店",
+        "location": "延安西路777号裕丰国际大厦（近曹家堰路加油站）",
+        "detail": "305室",
+        "phone": "021-62119567",
+        "time": "周一至周日 09:00~17：30",
+        "manager": "陆经理",
+        "qrcode": "static/images/qrcodes/qrcode_yananxilu.png"
+    },
+    {
+        "id": 14,
+        "name": "吴中路店",
+        "location": "吴中路1109号吴中商务大厦",
+        "detail": "613室",
+        "phone": "021- 34201837",
+        "time": "周一至周日 09:00~17：30",
+        "manager": "凌经理",
+        "qrcode": "static/images/qrcodes/qrcode_wuzhonglu.png"
+    },
+    {
+        "id": 15,
+        "name": "沪闵路店",
+        "location": "沪闵路7940号宁谷国际（近锦江乐园）",
+        "detail": "1406室",
+        "phone": "021- 51559623",
+        "time": "周一至周日 09:00~17：30",
+        "manager": "吴经理",
+        "qrcode": "static/images/qrcodes/qrcode_huminlu.png"
+    },
+    {
+        "id": 16,
+        "name": "松江店",
+        "location": "中山中路79弄9号（松江平高假日酒店对面）",
+        "detail": "913室",
+        "phone": "021- 37653706",
+        "time": "周一至周日 09:00~17：30",
+        "manager": "凌经理",
+        "qrcode": "static/images/qrcodes/qrcode_songjiang.png"
+    }
+]

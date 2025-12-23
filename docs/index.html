@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OK 小助手</title>
+    <link rel="stylesheet" href="static/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header Image -->
+            <div class="header-image-container">
+                <img src="static/images/header.png" alt="OK Card Header" class="header-image">
+            </div>
+
+            <div class="grid-container" id="main-grid">
+                <!-- Card 1: Choice -->
+                <div class="card card-white" onclick="openImageModal('static/images/choice_detail.png')">
+                    <div class="card-content">
+                        <h2 class="card-title">如何选</h2>
+                        <p class="card-subtitle">CHOICE</p>
+                    </div>
+                    <div class="card-decoration-img">
+                        <img src="static/images/choice_icon.png" alt="Choice Icon">
+                    </div>
+                </div>
+
+                <!-- Card 2: Use -->
+                <div class="card card-black">
+                    <div class="card-content">
+                        <h2 class="card-title">哪里用</h2>
+                        <p class="card-subtitle">USE</p>
+                    </div>
+                    <div class="card-decoration-img">
+                        <img src="static/images/use_icon.png" alt="Use Icon" style="filter: invert(1);">
+                    </div>
+                </div>
+
+                <!-- Card 3: Action -->
+                <div class="card card-black">
+                    <div class="card-content">
+                        <h2 class="card-title">如何用</h2>
+                        <p class="card-subtitle">ACTION</p>
+                    </div>
+                    <div class="card-decoration-img">
+                        <img src="static/images/action_icon.png" alt="Action Icon" style="filter: invert(1);">
+                    </div>
+                </div>
+
+                <!-- Card 4: Where -->
+                <div class="card card-white" id="card-where">
+                    <div class="card-content">
+                        <h2 class="card-title">哪里买</h2>
+                        <p class="card-subtitle">WHERE</p>
+                    </div>
+                    <div class="card-decoration-img">
+                        <img src="static/images/where_icon.png" alt="Where Icon">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Promo Image -->
+            <a class="promo-container" id="promo-container" href="items.html" aria-label="查看商品列表">
+                <img src="static/images/promo.jpg" alt="Promo" class="promo-image">
+            </a>
+
+            <!-- Buy Cards (hidden initially) -->
+            <div class="buy-cards hidden" id="buy-cards">
+                <div class="buy-card" id="buy-online-card">
+                    <div class="buy-card-content">
+                        <div class="buy-card-top">线上 购卡</div>
+                        <div class="buy-card-bottom">
+                            <img src="static/images/buy_online.png" alt="线上购卡">
+                        </div>
+                    </div>
+                </div>
+                <div class="buy-card" id="buy-offline-card">
+                    <div class="buy-card-content">
+                        <div class="buy-card-top">门店 购卡</div>
+                        <div class="buy-card-bottom">
+                            <img src="static/images/buy_offline.png" alt="门店购卡">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Image Viewer Modal -->
+        <div id="image-modal" class="image-modal">
+            <span class="close-image-modal" onclick="closeImageModal()">&times;</span>
+            <div class="image-modal-content">
+                <img id="modal-image" src="" alt="Detail">
+            </div>
+        </div>
+
+        <!-- Bottom Navigation -->
+        <nav class="bottom-nav">
+            <a href="index.html" class="nav-item active">
+                <i class="fa-solid fa-house"></i>
+                <span>首页</span>
+            </a>
+            <a href="address.html" class="nav-item">
+                <i class="fa-regular fa-map"></i>
+                <span>地址</span>
+            </a>
+            <a href="items.html" class="nav-item">
+                <i class="fa-solid fa-ticket"></i>
+                <span>票券</span>
+            </a>
+            <a href="#" class="nav-item">
+                <i class="fa-regular fa-face-smile"></i>
+                <span>其它</span>
+            </a>
+        </nav>
+    </div>
+
+    <script>
+        // Image Modal Logic
+        const imageModal = document.getElementById('image-modal');
+        const modalImg = document.getElementById('modal-image');
+        let currentScale = 1;
+        let isDragging = false;
+        let startX, startY, translateX = 0, translateY = 0;
+        let initialPinchDistance = 0;
+        let initialScale = 1;
+
+        function openImageModal(src) {
+            imageModal.style.display = "flex";
+            modalImg.src = src;
+            resetZoom();
+        }
+
+        function closeImageModal() {
+            imageModal.style.display = "none";
+        }
+
+        function resetZoom() {
+            currentScale = 1;
+            translateX = 0;
+            translateY = 0;
+            updateTransform();
+        }
+
+        function updateTransform() {
+            modalImg.style.transform = `translate(${translateX}px, ${translateY}px) scale(${currentScale})`;
+        }
+
+        // Mouse Wheel Zoom
+        imageModal.addEventListener('wheel', function(e) {
+            e.preventDefault();
+            const delta = e.deltaY * -0.001;
+            const newScale = Math.min(Math.max(0.5, currentScale + delta), 4); // Limit zoom 0.5x to 4x
+            currentScale = newScale;
+            updateTransform();
+        });
+
+        // Touch Gestures (Pinch to Zoom & Pan)
+        modalImg.addEventListener('touchstart', function(e) {
+            if (e.touches.length === 2) {
+                initialPinchDistance = getDistance(e.touches[0], e.touches[1]);
+                initialScale = currentScale;
+            } else if (e.touches.length === 1) {
+                isDragging = true;
+                startX = e.touches[0].clientX - translateX;
+                startY = e.touches[0].clientY - translateY;
+            }
+        });
+
+        modalImg.addEventListener('touchmove', function(e) {
+            e.preventDefault();
+            if (e.touches.length === 2) {
+                const currentDistance = getDistance(e.touches[0], e.touches[1]);
+                const scaleChange = currentDistance / initialPinchDistance;
+                currentScale = Math.min(Math.max(0.5, initialScale * scaleChange), 4);
+                updateTransform();
+            } else if (e.touches.length === 1 && isDragging) {
+                translateX = e.touches[0].clientX - startX;
+                translateY = e.touches[0].clientY - startY;
+                updateTransform();
+            }
+        });
+
+        modalImg.addEventListener('touchend', function(e) {
+            isDragging = false;
+        });
+
+        function getDistance(touch1, touch2) {
+            return Math.hypot(touch2.clientX - touch1.clientX, touch2.clientY - touch1.clientY);
+        }
+
+        // Close on click outside image
+        imageModal.addEventListener('click', function(e) {
+            if (e.target === imageModal) {
+                closeImageModal();
+            }
+        });
+
+        // Where to buy interaction
+        const whereCard = document.getElementById('card-where');
+        const grid = document.getElementById('main-grid');
+        const promo = document.getElementById('promo-container');
+        const buyCards = document.getElementById('buy-cards');
+        const buyOnline = document.getElementById('buy-online-card');
+        const buyOffline = document.getElementById('buy-offline-card');
+
+        function fadeOutAndHide(el) {
+            if (!el || el.classList.contains('hidden')) return;
+            el.classList.remove('fade-enter', 'fade-enter-active');
+            el.classList.add('fade-exit');
+            void el.offsetWidth;
+            el.classList.add('fade-exit-active');
+            el.addEventListener('transitionend', function handler() {
+                el.classList.add('hidden');
+                el.classList.remove('fade-exit', 'fade-exit-active');
+                el.removeEventListener('transitionend', handler);
+            });
+        }
+
+        function showWithFade(el) {
+            if (!el) return;
+            el.classList.remove('hidden', 'fade-exit', 'fade-exit-active');
+            el.classList.add('fade-enter');
+            void el.offsetWidth;
+            el.classList.add('fade-enter-active');
+            el.addEventListener('transitionend', function handler() {
+                el.classList.remove('fade-enter', 'fade-enter-active');
+                el.removeEventListener('transitionend', handler);
+            });
+        }
+
+        if (whereCard) {
+            whereCard.addEventListener('click', () => {
+                fadeOutAndHide(grid);
+                fadeOutAndHide(promo);
+                showWithFade(buyCards);
+            });
+        }
+
+        if (buyOnline) {
+            buyOnline.addEventListener('click', () => {
+                window.location.href = '/buy-online';
+            });
+        }
+
+        if (buyOffline) {
+            buyOffline.addEventListener('click', () => {
+                window.location.href = '/address';
+            });
+        }
+    </script>
+</body>
+</html>

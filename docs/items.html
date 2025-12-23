@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OK 小助手 - 票券</title>
+    <link rel="stylesheet" href="static/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo-area">
+                <button class="btn-home" onclick="location.href='/'">
+                    <i class="fa-solid fa-house"></i>
+                </button>
+                <span class="logo-text">票券</span>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content products-content">
+            <div id="items-grid" class="items-grid">
+                <div class="loading">加载中...</div>
+            </div>
+        </main>
+
+        <!-- Bottom Navigation -->
+        <nav class="bottom-nav">
+            <a href="index.html" class="nav-item">
+                <i class="fa-solid fa-house"></i>
+                <span>首页</span>
+            </a>
+            <a href="address.html" class="nav-item">
+                <i class="fa-regular fa-map"></i>
+                <span>地址</span>
+            </a>
+            <a href="items.html" class="nav-item active">
+                <i class="fa-solid fa-ticket"></i>
+                <span>票券</span>
+            </a>
+            <a href="#" class="nav-item">
+                <i class="fa-regular fa-face-smile"></i>
+                <span>其它</span>
+            </a>
+        </nav>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const grid = document.getElementById('items-grid');
+            fetch('static/data/items.json')
+                .then(res => res.json())
+                .then(data => {
+                    grid.innerHTML = '';
+                    data.forEach(item => {
+                        const card = document.createElement('div');
+                        card.className = 'item-card';
+                        const detailHtml = (item.detail || '').replace(/\n/g, '<br>');
+                        card.innerHTML = `
+                            <div class="item-image-wrap">
+                                <img src="/${item.pic}" alt="${item.name}" class="item-image">
+                            </div>
+                            <div class="item-info">
+                                <div class="item-name">${item.name}</div>
+                                <div class="item-prices">
+                                    <span class="item-price-sale">￥${item.retail_price}</span>
+                                    <span class="item-price-market">￥${item.market_price}</span>
+                                </div>
+                                <div class="item-detail" aria-label="${item.detail}">${detailHtml}</div>
+                            </div>
+                        `;
+                        grid.appendChild(card);
+                    });
+                })
+                .catch(err => {
+                    console.error('加载商品失败:', err);
+                    grid.innerHTML = '<div class="error">加载失败</div>';
+                });
+        });
+    </script>
+</body>
+</html>
