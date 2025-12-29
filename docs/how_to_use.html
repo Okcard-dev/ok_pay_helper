@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>如何用</title>
+    <link rel="stylesheet" href="static/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="app-container">
+        <header class="header">
+            <div class="logo-area">
+                <button class="btn-home" onclick="location.href='/'" aria-label="返回首页">
+                    <i class="fa-solid fa-house"></i>
+                </button>
+                <span class="logo-text">如何用</span>
+            </div>
+        </header>
+        <main class="main-content use-content">
+            <div class="use-tab-group" role="tablist" aria-label="使用方式切换">
+                <button class="use-tab active" role="tab" aria-selected="true" data-target="dianzi">电子卡</button>
+                <button class="use-tab" role="tab" aria-selected="false" data-target="shiti">实体卡</button>
+            </div>
+            <div class="use-illustration-shell">
+                <div class="use-illustration-surface">
+                    <img id="use-illustration" src="static/images/use_dianzi.png" alt="电子卡使用示意" class="use-illustration">
+                </div>
+            </div>
+        </main>
+        <nav class="bottom-nav">
+            <a href="index.html" class="nav-item active">
+                <i class="fa-solid fa-house"></i>
+                <span>首页</span>
+            </a>
+            <a href="address.html" class="nav-item">
+                <i class="fa-regular fa-map"></i>
+                <span>地址</span>
+            </a>
+            <a href="items.html" class="nav-item">
+                <i class="fa-solid fa-ticket"></i>
+                <span>票券</span>
+            </a>
+            <a href="#" class="nav-item">
+                <i class="fa-regular fa-face-smile"></i>
+                <span>其它</span>
+            </a>
+        </nav>
+    </div>
+
+    <script>
+        const tabButtons = document.querySelectorAll('.use-tab');
+        const illustration = document.getElementById('use-illustration');
+        const sources = {
+            dianzi: {
+                src: '/static/images/use_dianzi.png',
+                alt: '电子卡使用示意',
+            },
+            shiti: {
+                src: '/static/images/use_shiti.png',
+                alt: '实体卡使用示意',
+            },
+        };
+
+        function setActiveTab(key) {
+            tabButtons.forEach((btn) => {
+                const isActive = btn.dataset.target === key;
+                btn.classList.toggle('active', isActive);
+                btn.setAttribute('aria-selected', String(isActive));
+            });
+            const payload = sources[key];
+            if (payload) {
+                illustration.src = payload.src;
+                illustration.alt = payload.alt;
+            }
+        }
+
+        tabButtons.forEach((btn) => {
+            btn.addEventListener('click', () => {
+                setActiveTab(btn.dataset.target);
+            });
+        });
+    </script>
+</body>
+</html>

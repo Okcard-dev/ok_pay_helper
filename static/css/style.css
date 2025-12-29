@@ -1,5 +1,5 @@
 :root {
-    --bg-color: #f2f2f2;
+    --bg-color: #ffffff;
     --text-primary: #000000;
     --text-secondary: #666666;
     --card-radius: 20px;
@@ -168,24 +168,19 @@ body {
     color: #000000;
 }
 
-.card-black {
-    background-color: #000000;
-    color: #ffffff;
-}
-
 .card-content {
     z-index: 2;
 }
 
 .card-title {
-    font-size: 1.4rem; /* Increased size */
+    font-size: 2.1rem; /* Increased by 50% */
     font-weight: 700;
     margin-bottom: 5px;
     line-height: 1.2;
 }
 
 .card-subtitle {
-    font-size: 0.8rem;
+    font-size: 1.2rem; /* Increased by 50% */
     text-transform: uppercase;
     opacity: 0.8;
     font-weight: 500;
@@ -203,16 +198,41 @@ body {
     position: absolute;
     bottom: 10px;
     right: 10px;
-    width: 60px; /* Adjust size as needed */
+    width: 90px; /* Increased by 50% */
     height: auto;
     opacity: 0.9;
+}
+
+#card-use {
+    background-color: #1d6aac;
+    color: #ffffff;
+}
+
+#card-how-to {
+    background-color: #ffbd59;
+    color: #ffffff;
 }
 
 .card-decoration-img img {
     width: 100%;
     height: auto;
     display: block;
+    filter: none;
 }
+
+#card-use .card-decoration-img{
+    background-color: #1d6aac !important;
+    color: #ffffff !important;
+    mix-blend-mode: multiply;
+}
+
+#card-how-to .card-decoration-img{
+    background-color: #ffbd59 !important;
+    color: #ffffff !important;
+    mix-blend-mode: multiply;
+}
+
+/* Colored cards keep original icon colors */
 
 /* Banner */
 .banner {
@@ -376,7 +396,7 @@ body {
 }
 
 .btn-contact {
-    background-color: #000;
+    background-color: #1d6aac;
     color: #fff;
     border: none;
     padding: 8px 12px;
@@ -532,10 +552,22 @@ body {
     font-weight: 800;
     letter-spacing: 1px;
     text-align: center;
+    background: #fff;
+    color: #000;
+}
+
+#buy-online-card .buy-card-top {
+    background: #ffbd59;
+    color: #000;
+}
+
+#buy-offline-card .buy-card-top {
+    background: #1d6aac;
+    color: #fff;
 }
 
 .buy-card-bottom {
-    background: #f7f7f7;
+    background: #fff;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -690,9 +722,14 @@ body {
 }
 
 .where-use-header {
-    background: linear-gradient(135deg, #111, #333);
+    background: #1d6aac;
     color: #fff;
     padding: 14px 16px;
+}
+
+.where-use-column:nth-of-type(2) .where-use-header {
+    background: #ffbd59;
+    color: #fff;
 }
 
 .where-use-title {
@@ -717,6 +754,8 @@ body {
     gap: 10px;
     cursor: pointer;
     transition: background 0.18s ease;
+    background: #fff;
+    color: #000;
 }
 
 .where-use-item:first-of-type {

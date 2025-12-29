@@ -29,24 +29,24 @@
                 </div>
 
                 <!-- Card 2: Use -->
-                <div class="card card-black">
+                <div class="card card-black" id="card-use">
                     <div class="card-content">
                         <h2 class="card-title">哪里用</h2>
                         <p class="card-subtitle">USE</p>
                     </div>
                     <div class="card-decoration-img">
-                        <img src="static/images/use_icon.png" alt="Use Icon" style="filter: invert(1);">
+                        <img src="static/images/use_icon.png" alt="Use Icon">
                     </div>
                 </div>
 
                 <!-- Card 3: Action -->
-                <div class="card card-black">
+                <div class="card card-black" id="card-how-to">
                     <div class="card-content">
                         <h2 class="card-title">如何用</h2>
                         <p class="card-subtitle">ACTION</p>
                     </div>
                     <div class="card-decoration-img">
-                        <img src="static/images/action_icon.png" alt="Action Icon" style="filter: invert(1);">
+                        <img src="static/images/action_icon.png" alt="Action Icon">
                     </div>
                 </div>
 
@@ -199,7 +199,9 @@
         });
 
         // Where to buy interaction
-        const whereCard = document.getElementById('card-where');
+    const whereCard = document.getElementById('card-where');
+    const useCard = document.getElementById('card-use');
+        const howToCard = document.getElementById('card-how-to');
         const grid = document.getElementById('main-grid');
         const promo = document.getElementById('promo-container');
         const buyCards = document.getElementById('buy-cards');
@@ -231,6 +233,12 @@
             });
         }
 
+        if (useCard) {
+            useCard.addEventListener('click', () => {
+                window.location.href = 'where_use.html';
+            });
+        }
+
         if (whereCard) {
             whereCard.addEventListener('click', () => {
                 fadeOutAndHide(grid);
@@ -248,6 +256,12 @@
         if (buyOffline) {
             buyOffline.addEventListener('click', () => {
                 window.location.href = '/address';
+            });
+        }
+
+        if (howToCard) {
+            howToCard.addEventListener('click', () => {
+                window.location.href = 'how_to_use.html';
             });
         }
     </script>

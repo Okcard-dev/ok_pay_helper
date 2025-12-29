@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>哪里用</title>
+    <link rel="stylesheet" href="static/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="app-container">
+        <header class="header">
+            <div class="logo-area">
+                <button class="btn-home" onclick="location.href='/'" aria-label="返回首页">
+                    <i class="fa-solid fa-house"></i>
+                </button>
+                <span class="logo-text">哪里用</span>
+            </div>
+        </header>
+
+        <main class="main-content where-use-content">
+            <div class="where-use-grid" role="table" aria-label="线上线下使用场景">
+                <section class="where-use-column" role="rowgroup">
+                    <header class="where-use-header" role="row">
+                        <div class="where-use-title" role="columnheader">线上</div>
+                    </header>
+                    <ul class="where-use-list" role="rowgroup">
+                        <li class="where-use-item" role="row" data-key="推荐">推荐</li>
+                        <li class="where-use-item" role="row" data-key="蛋糕烘培">蛋糕烘培</li>
+                        <li class="where-use-item" role="row" data-key="时尚购物">时尚购物</li>
+                        <li class="where-use-item" role="row" data-key="本地餐饮">本地餐饮</li>
+                        <li class="where-use-item" role="row" data-key="生鲜食品">生鲜食品</li>
+                        <li class="where-use-item" role="row" data-key="欢购城">欢购城</li>
+                        <li class="where-use-item" role="row" data-key="交通出行">交通出行</li>
+                        <li class="where-use-item" role="row" data-key="休闲娱乐">休闲娱乐</li>
+                        <li class="where-use-item" role="row" data-key="医药保健">医药保健</li>
+                        <li class="where-use-item" role="row" data-key="生活服务">生活服务</li>
+                    </ul>
+                </section>
+                <section class="where-use-column" role="rowgroup">
+                    <header class="where-use-header" role="row">
+                        <div class="where-use-title" role="columnheader">线下</div>
+                    </header>
+                    <ul class="where-use-list" role="rowgroup">
+                        <li class="where-use-item" role="row" data-key="专卖">专卖</li>
+                        <li class="where-use-item" role="row" data-key="百货">百货</li>
+                        <li class="where-use-item" role="row" data-key="餐饮">餐饮</li>
+                        <li class="where-use-item" role="row" data-key="商超">商超</li>
+                    </ul>
+                </section>
+            </div>
+        </main>
+
+        <div class="where-use-modal" id="whereUseModal" aria-hidden="true">
+            <div class="where-use-card" id="whereUseCard">
+                <button class="where-use-close" id="whereUseClose" aria-label="关闭">×</button>
+                <button class="where-use-nav prev" id="whereUsePrev" aria-label="上一张">‹</button>
+                <img id="whereUseImage" src="static/images/use_dianzi.png" alt="示例图片">
+                <button class="where-use-nav next" id="whereUseNext" aria-label="下一张">›</button>
+            </div>
+        </div>
+
+        <nav class="bottom-nav">
+            <a href="index.html" class="nav-item">
+                <i class="fa-solid fa-house"></i>
+                <span>首页</span>
+            </a>
+            <a href="address.html" class="nav-item">
+                <i class="fa-regular fa-map"></i>
+                <span>地址</span>
+            </a>
+            <a href="items.html" class="nav-item">
+                <i class="fa-solid fa-ticket"></i>
+                <span>票券</span>
+            </a>
+            <a href="#" class="nav-item">
+                <i class="fa-regular fa-face-smile"></i>
+                <span>其它</span>
+            </a>
+        </nav>
+    </div>
+
+    <script>
+        const whereUseModal = document.getElementById('whereUseModal');
+        const whereUseImage = document.getElementById('whereUseImage');
+        const whereUseClose = document.getElementById('whereUseClose');
+        const whereUsePrev = document.getElementById('whereUsePrev');
+        const whereUseNext = document.getElementById('whereUseNext');
+        const whereUseCard = document.getElementById('whereUseCard');
+
+        const galleries = {
+            '推荐': ['/static/images/where_tuijian.jpg'],
+            '蛋糕烘培': ['/static/images/where_dangaohongbei.jpg'],
+            '时尚购物': ['/static/images/where_shishanggouwu.jpg'],
+            '本地餐饮': ['/static/images/where_bendicanyin.jpg'],
+            '生鲜食品': ['/static/images/where_shengxianshipin.jpg'],
+            '欢购城': ['/static/images/where_huangoucheng.jpg'],
+            '交通出行': ['/static/images/where_jiaotongchuxing.jpg'],
+            '休闲娱乐': ['/static/images/where_xiuxianyule.jpg'],
+            '医药保健': ['/static/images/where_yiyaobaojian.jpg'],
+            '生活服务': ['/static/images/where_shenghuofuwu.jpg'],
+            '专卖': ['/static/images/where_zhuanmai_1.jpg', '/static/images/where_zhuanmai_2.jpg'],
+            '百货': ['/static/images/where_baihuo.jpg'],
+            '餐饮': ['/static/images/where_canyin.jpg'],
+            '商超': ['/static/images/where_shangchao.jpg'],
+        };
+
+        let currentList = [];
+        let currentIndex = 0;
+
+        function toggleNav() {
+            const visible = currentList.length > 1;
+            whereUsePrev.style.display = visible ? 'flex' : 'none';
+            whereUseNext.style.display = visible ? 'flex' : 'none';
+        }
+
+        function showModal(images, startIndex = 0) {
+            currentList = images.length ? images : ['/static/images/use_dianzi.png'];
+            currentIndex = Math.min(Math.max(startIndex, 0), currentList.length - 1);
+            whereUseImage.src = currentList[currentIndex];
+            toggleNav();
+            whereUseModal.classList.add('active');
+            whereUseModal.setAttribute('aria-hidden', 'false');
+        }
+
+        function hideModal() {
+            whereUseModal.classList.remove('active');
+            whereUseModal.setAttribute('aria-hidden', 'true');
+        }
+
+        function showNext(delta) {
+            if (currentList.length <= 1) return;
+            currentIndex = (currentIndex + delta + currentList.length) % currentList.length;
+            whereUseImage.src = currentList[currentIndex];
+        }
+
+        document.querySelectorAll('.where-use-item').forEach((item) => {
+            item.addEventListener('click', () => {
+                const key = item.dataset.key;
+                const imgs = galleries[key] || [];
+                showModal(imgs, 0);
+            });
+        });
+
+        whereUseClose.addEventListener('click', hideModal);
+        whereUsePrev.addEventListener('click', () => showNext(-1));
+        whereUseNext.addEventListener('click', () => showNext(1));
+
+        whereUseModal.addEventListener('click', (e) => {
+            if (e.target === whereUseModal) hideModal();
+        });
+
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        whereUseCard.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+        });
+
+        whereUseCard.addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches[0].screenX;
+            const delta = touchEndX - touchStartX;
+            if (Math.abs(delta) > 40) {
+                showNext(delta > 0 ? -1 : 1);
+            }
+        });
+    </script>
+</body>
+</html>
